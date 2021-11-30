@@ -109,67 +109,13 @@ if SUPPORT_INT128:
     ]
 
 c_libraries = [(
-    'fnv', {
-        "sources": [
-            'src/fnv/hash_32.c',
-            'src/fnv/hash_32a.c',
-            'src/fnv/hash_64.c',
-            'src/fnv/hash_64a.c'
-        ],
-        "macros": extra_macros,
-    }
-), (
     'smhasher', {
         "sources": list(filter(None, [
-            'src/smhasher/MurmurHash1.cpp',
-            'src/smhasher/MurmurHash2.cpp',
-            'src/smhasher/MurmurHash3.cpp',
-            'src/smhasher/City.cpp',
-            'src/smhasher/Spooky.cpp',
-            'src/smhasher/SpookyV2.cpp',
-            'src/smhasher/metrohash/metrohash64.cpp',
-            'src/smhasher/metrohash/metrohash64crc.cpp' if IS_X86 or IS_ARM64 else None,
-            'src/smhasher/metrohash/metrohash128.cpp',
-            'src/smhasher/metrohash/metrohash128crc.cpp' if IS_X86 or IS_ARM64 else None,
+            'src/smhasher/City.cpp'
         ])),
         "cflags": extra_compile_args + [
             "-std=c++11",
         ],
-    }
-), (
-    't1ha', {
-        "sources": list(filter(None, [
-            'src/t1ha/src/t1ha0.c',
-            'src/t1ha/src/t1ha0_ia32aes_avx.c' if IS_X86 else None,
-            'src/t1ha/src/t1ha0_ia32aes_avx2.c' if IS_X86 else None,
-            'src/t1ha/src/t1ha0_ia32aes_noavx.c',
-            'src/t1ha/src/t1ha1.c',
-            'src/t1ha/src/t1ha2.c',
-        ])),
-        "macros": [
-            ("T1HA0_AESNI_AVAILABLE", ON if cpu.aes else OFF),
-            ("T1HA0_RUNTIME_SELECT", ON),
-        ],
-        "cflags": extra_compile_args,
-    }
-), (
-    'farm', {
-        "sources": ['src/smhasher/farmhash-c.c'],
-        "macros": extra_macros,
-    }
-), (
-    'lookup3', {
-        "sources": ['src/lookup3/lookup3.c'],
-        "macros": extra_macros,
-    }
-), (
-    'SuperFastHash', {
-        "sources": ['src/SuperFastHash/SuperFastHash.c'],
-        "macros": extra_macros,
-    }
-), (
-    "xxhash", {
-        "sources": ["src/xxHash/xxhash.c"],
     }
 )]
 
