@@ -59,7 +59,6 @@ cpu = cpu_features()
 macros = []
 include_dirs = [
     "src/pybind11/include",
-    "src/highwayhash",
 ]
 library_dirs = []
 libraries = []
@@ -120,26 +119,14 @@ c_libraries = [(
 )]
 
 if not IS_WINNT:
-    srcs = [
-        "src/highwayhash/highwayhash/arch_specific.cc",
-        "src/highwayhash/highwayhash/instruction_sets.cc",
-        "src/highwayhash/highwayhash/os_specific.cc",
-        "src/highwayhash/highwayhash/hh_portable.cc",
-    ]
     cflags = extra_compile_args + [
-        "-Isrc/highwayhash",
         "-std=c++11",
     ]
 
     if IS_X86_64:
-        srcs += [
-            "src/highwayhash/highwayhash/hh_sse41.cc",
-            "src/highwayhash/highwayhash/hh_avx2.cc",
-        ]
         cflags += ["-msse4.1", "-mavx2"]
 
     elif IS_ARM64:
-        srcs += ["src/highwayhash/highwayhash/hh_neon.cc"]
         cflags += [
             '-mfloat-abi=hard',
             '-march=armv7-a',
@@ -147,15 +134,7 @@ if not IS_WINNT:
         ]
 
     elif IS_PPC64:
-        srcs += ["src/highwayhash/highwayhash/hh_vsx.cc"]
         cflags += ['-mvsx']
-
-    c_libraries += [(
-        "highwayhash", {
-            "sources": srcs,
-            "cflags": cflags,
-        }
-    )]
 
 libraries += [libname for (libname, _) in c_libraries]
 cmdclass = {}
