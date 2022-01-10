@@ -160,7 +160,7 @@ pyhash = Extension(name="_pyhash",
                    )
 
 setup(name='pyhash',
-      version='0.9.4',
+      version='0.9.99',
       description='Python Non-cryptographic Hash Library',
       long_description=open(os.path.join(here, 'README.md')).read(),
       long_description_content_type='text/markdown',
